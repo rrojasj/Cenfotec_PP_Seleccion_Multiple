@@ -10,7 +10,7 @@ while excercise != 0:
         execute_1()
 
     elif excercise == 2:
-        print()
+        execute_2()
     
     elif excercise == 3:
         print()

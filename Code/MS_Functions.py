@@ -1,9 +1,6 @@
 
 
 
-
-
-
 def show_exercises():
     """
     Description: 
@@ -94,5 +91,42 @@ def execute_1():
         print("\nGracias por utilizar nuestro sistema de fechas y calendario.\n")
         
 
+def execute_2():
+    """
+    Description: 
+    - Muestra el enunciado e inicia la ejecución específica del ejercicio
+    """
+    import json
 
+    statement = '''{
+    "msg":"Enunciado:
+A usted se le pide que realice un programa que, recibiendo la medida de tres lados, se imprima si estos tres lados pueden formar un triángulo.
+Tres lados forman un triángulo si la suma de dos lados de un triángulo siempre es mayor al tercer lado.
+Por ejemplo, si tenemos un lado a que mide 7, un lado b que mide 10 y un lado c que mide 5, se compara si la suma de los lados b y c es mayor que la medida del lado a.
+Luego si la suma de los lados a y b es mayor que la medida del lado c y, finalmente, si la suma del lado a y c es mayor que la medida del lado b.
+Si las tres condiciones se cumplen, entonces los tres lados conforman un triángulo."
+}'''
+    print("\n")
+    print(json.loads(statement, strict=False)["msg"])
+
+    print("\nIngrese los valores de cada lado que formarán el triángulo:\n")
+    lado_1 = float(input("Lado 1:\n"))
+    lado_2 = float(input("Lado 2:\n"))
+    lado_3 = float(input("Lado 3:\n"))
+
+    triangle_yes = "Los lados SI forman un triángulo" 
+    triangle_no = "Los lados NO forman un triángulo" 
+
+    if sum([lado_1, lado_2]) > lado_3:
+        if sum([lado_2, lado_3]) > lado_1:
+            if sum([lado_1, lado_3]) > lado_2:
+                msg = triangle_yes
+            else:
+                msg = triangle_no
+        else:
+                msg = triangle_no
+    else:
+        msg = triangle_no
+
+    print("\n"+msg+"\nMuchas gracias.")
 
