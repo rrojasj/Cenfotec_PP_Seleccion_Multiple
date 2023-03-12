@@ -13,7 +13,7 @@ while excercise != 0:
         execute_2()
     
     elif excercise == 3:
-        print()
+        execute_3
     
     elif excercise == 4:
         print()

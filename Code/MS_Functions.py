@@ -14,6 +14,17 @@ def show_exercises():
     print("[5] Ejercicio No.5 - Edad de una piedra")
     print("[0] Salir del programa")
 
+def show_scholarships():
+    """
+    Description: 
+    - Muestra el menú para la selección de tipos de beca
+    """
+    print("\n************** Tipos de beca **************")
+    print("[1] Requisitos Tipo A - Bloque completo & Todas las materias ganadas y notas superiores a 70")
+    print("[2] Requisitos Tipo B - Promedio igual o mayor a 90 & Notas igual o mayor a 80")
+    print("[3] Requisitos Tipo C - Promedio igual o mayor a 85 y ha sido asistente nivel A o B")
+    print("[0] Salir del programa\n")
+
 def execute_1():
     """
     Description: 
@@ -129,4 +140,131 @@ Si las tres condiciones se cumplen, entonces los tres lados conforman un triáng
         msg = triangle_no
 
     print("\n"+msg+"\nMuchas gracias.")
+
+def create_score_list(p_scores_qty) -> list:
+    """
+    Description:
+    - Obtiene las notas de los cursos, las agrega a una lista y retorna la lista "score_list"
+    """
+    counter = 1
+    score_list = []
+
+    for _ in range(p_scores_qty):
+        score = input("Ingrese el valor de la nota No."+counter)
+        score_list.append(score)
+    
+    return score_list
+
+def calc_avg(p_score_list, p_scores_qty) -> float:
+    """
+    Description:
+    - Calcula el promedio de los elementos en la lista
+    """
+    avg = (sum(p_score_list)/p_scores_qty)
+    return avg
+
+def validate_sch(p_continue, p_min_score, p_score_list) -> str:
+    """
+    Description:
+    - Determina si el estudiante es candidato para la aprobación de la beca Tipo A o B.
+    """
+
+    if p_continue == 1:
+
+        for i in p_score_list:
+            if i > p_min_score:
+                i += 1
+                for i in p_min_score:
+                    if i > p_min_score:
+                        i += 1
+                        for i in p_min_score:
+                            if i > p_min_score:
+                                i += 1
+                                for i in p_min_score:
+                                    if i > p_min_score:
+                                       msg = "El estudiante SI aplica para la beca."
+                                    else:
+                                       msg = "El estudiante NO aplica para la beca."
+                            else:
+                                msg = "El estudiante NO aplica para la beca."
+                    else:
+                        msg = "El estudiante NO aplica para la beca."
+            else:
+                msg = "El estudiante NO aplica para la beca."
+    return msg
+
+def execute_3():
+    """
+    Description: 
+    - Muestra el enunciado e inicia la ejecución específica del ejercicio
+    """
+    import json
+    import time
+
+    statement = '''{
+    "msg":"Enunciado:
+A usted se le pide realizar un programa que determine si un estudiante de una institución universitaria es candidato a que le den una beca. 
+Un estudiante puede optar por una beca solamente si:
+A. Si lleva el bloque de cuatro materias completo, y no perdió ninguna materia, por lo que el sistema siempre va a recibir las notas de las cuatro materias y todas las notas van a ser superiores a 70. 
+B. Si el promedio de las notas de las materias del cuatrimestre es igual o superior a noventa, y si ninguna nota está por debajo de 8. 
+C. Si el promedio de las materias del cuatrimestre es igual a superior a 85, fue asistente durante el cuatrimestre y la calificación que se le otorgó como asistente fue de una A o una B. 
+Si su calificación como asistente fue de una C no tiene derecho a beca, sin importar el promedio."
+}'''
+    print("\n")
+    print(json.loads(statement, strict=False)["msg"])
+
+    scores_qty = int(input("\nIngrese la cantidad de notas para verificar:\n"))
+
+    score_list = create_score_list(scores_qty)
+
+    avg = calc_avg(score_list, scores_qty)
+
+    show_scholarships()
+    sch_option = int(input("Seleccione el tipo de aplicación para la beca:"))
+    
+    while sch_option != 0:
+
+        if sch_option == 1:
+            
+            min_score = 70
+
+            full_block = int(input("El estudiante lleva bloque de cuatro materias completo? \n1. Si\n2. No"))
+
+            if full_block == 1:
+                next_step = full_block
+                msg = validate_sch(next_step, min_score, score_list)
+        
+        elif sch_option == 2:
+            min_score = 80
+
+            if avg >= 90:
+                next_step = 1
+                msg = validate_sch(next_step, min_score, score_list)
+
+        elif sch_option == 3:
+            min_avg = 85
+
+            if avg >= min_avg:
+                assist = int(input("El estudiante fue asistente durante el cuatrimestre anterior? \n1. Si\n2. No"))
+
+                if assist == 1:
+                    assist_level = input("Ingrese la calificación que obtuvo el estudiante como asistente: \n1. A\n2. B\n3. C")
+
+                    if assist_level == 1 and assist_level == 2:
+                        msg = "El estudiante SI aplica para la beca."
+                    else:
+                        msg = "El estudiante NO aplica para la beca."
+                else:
+                    msg = "El estudiante SI aplica para la beca."
+            else:
+                msg = "El estudiante SI aplica para la beca."
+
+        else:
+            print("Ha ingresado un valor incorrecto, favor intente nuevamente.\nMuchas gracias!")
+            time.sleep(3)
+            show_exercises()
+        
+        time.sleep(3)
+        show_exercises()
+
 
